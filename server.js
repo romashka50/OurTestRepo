@@ -13,6 +13,10 @@ app.get('/', function(req, res, next){
     res.render('index.html', {title: 'Hello World Rendered'});
 });
 
+app.post('/song', function(req, res, next){
+    res.status(200).send({name: 'first song'});
+});
+
 app.listen(3030, function(){
     console.log('Server start listening on port', 3030);
 });
