@@ -1,22 +1,36 @@
 var express = require('express');
+var path = require('path');
+
 var app = express();
-var consolidate = require('consolidate');
 
-app.use(express.static(__dirname + '/public'));
+var staticUrl = path.join(__dirname, 'public');
 
-app.engine('html', consolidate.ejs);
+console.log(staticUrl);
 
-app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.use(express.static(staticUrl));
 
 app.get('/', function(req, res, next){
-    res.render('index.html', {title: 'Hello World Rendered'});
+    res.sendfile('index.html');
 });
 
-app.post('/song', function(req, res, next){
-    res.status(200).send({name: 'first song'});
+app.get('/myApi/user', function(req, res, next){
+    var pupkin = {
+        _id: 1,
+        name: 'Pupkin',
+        age: 30
+    };
+    var ivanov = {
+        _id: 2,
+        name: 'Ivanov',
+        age: 36
+    };
+    var petrov = {
+        _id: 3,
+        name: 'Petrov',
+        age: 28
+    };
+
+    res.status(200).send([pupkin, ivanov, petrov]);
 });
 
-app.listen(3030, function(){
-    console.log('Server start listening on port', 3030);
-});
+app.listen(3030);

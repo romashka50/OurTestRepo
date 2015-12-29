@@ -11,17 +11,9 @@
     "url": "git+https://github.com/romashka50/OurTestRepo.git"
   },
   "author": "",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
     "url": "https://github.com/romashka50/OurTestRepo/issues"
   },
-  "homepage": "https://github.com/romashka50/OurTestRepo#readme",
-  "dependencies": {
-    "consolidate": "^0.13.1",
-    "ejs": "^2.3.4",
-    "express": "^4.13.3"
-  },
-  "devDependencies": {
-    "mocha": "^2.3.4"
-  }
+  "homepage": "https://github.com/romashka50/OurTestRepo#readme"
 }
