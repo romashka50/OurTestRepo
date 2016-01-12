@@ -8,6 +8,7 @@ define([
         template: _.template(UserTemplate),
 
         initialize: function(options){
+            this.chanel = options.chanel;
             this.startTime = options.startTime;
             this.render();
         },
@@ -23,6 +24,8 @@ define([
             });
 
             this.$el.append('<span>' + (new Date() - this.startTime) + '</span>' );
+
+            this.chanel.trigger('customEvent');
             return this;
         }
     });

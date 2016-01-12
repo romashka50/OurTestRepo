@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/romashka50/OurTestRepo/issues"
   },
-  "homepage": "https://github.com/romashka50/OurTestRepo#readme"
+  "homepage": "https://github.com/romashka50/OurTestRepo#readme",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "morgan": "^1.6.1"
+  }
 }

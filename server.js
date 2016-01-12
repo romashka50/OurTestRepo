@@ -1,36 +1,42 @@
 var express = require('express');
-var path = require('path');
-
 var app = express();
-
+var path = require('path');
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
 var staticUrl = path.join(__dirname, 'public');
 
-console.log(staticUrl);
+var myStack = function(req, res, next){
+    console.log('my custom stackMidlware for /kill');
+
+    next();
+};
+
+var userRouter = require('./routes/user');
+
+app.use(morgan('dev'));
+app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended: false, limit: 1024 * 1024 * 200}));
 
 app.use(express.static(staticUrl));
 
+app.use(function(req, res, next){
+    req.logged = req.logged || {};
+    req.logged.date = new Date();
+
+    next();
+});
+
 app.get('/', function(req, res, next){
+    console.log(req.logged);
     res.sendfile('index.html');
 });
 
-app.get('/myApi/user', function(req, res, next){
-    var pupkin = {
-        _id: 1,
-        name: 'Pupkin',
-        age: 30
-    };
-    var ivanov = {
-        _id: 2,
-        name: 'Ivanov',
-        age: 36
-    };
-    var petrov = {
-        _id: 3,
-        name: 'Petrov',
-        age: 28
-    };
+app.all('*', function(req, res, next){
+    req.logged.ip = req.ip;
 
-    res.status(200).send([pupkin, ivanov, petrov]);
+    next();
 });
+
+app.use('/myApi/user', userRouter);
 
 app.listen(3030);
