@@ -1,29 +1,41 @@
 define([
     'Backbone',
     'views/user/userItem',
+    'views/user/createItem',
     'text!templates/user/user.html'
-], function(Backbone, UserItemView, UserTemplate){
+], function (Backbone, UserItemView, createItem, UserTemplate) {
     var View = Backbone.View.extend({
-        el: '#content-holder',
+        el      : '#content-holder',
         template: _.template(UserTemplate),
 
-        initialize: function(options){
+        events: {
+            'click #createBtn': 'createItem'
+        },
+
+        initialize: function (options) {
             this.chanel = options.chanel;
             this.startTime = options.startTime;
             this.render();
         },
 
-        render: function(){
+        createItem: function (e) {
+            if(this.creatItemView){
+                this.creatItemView.undelegateEvents();
+            }
+            this.creatItemView = new createItem();
+        },
+
+        render: function () {
 
             this.$el.html(this.template({
                 tableName: 'UserTable'
             }));
 
-            this.collection.each(function(model){
+            this.collection.each(function (model) {
                 var item = new UserItemView({model: model});
             });
 
-            this.$el.append('<span>' + (new Date() - this.startTime) + '</span>' );
+            this.$el.append('<span>' + (new Date() - this.startTime) + '</span>');
 
             this.chanel.trigger('customEvent');
             return this;

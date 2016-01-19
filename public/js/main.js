@@ -12,6 +12,9 @@ require.config({
         templates: '../templates'
     },
     shim : {
+        Underscore: {
+            exports: '_'
+        },
         'Backbone': ['Underscore', 'jQuery'],
         'app'     : ['Backbone']
     }

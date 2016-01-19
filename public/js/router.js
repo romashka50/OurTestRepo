@@ -27,8 +27,11 @@ define(['Backbone'], function (Backbone) {
                 collection.on('reset', buildView, self);
 
                 function buildView() {
-                    //ToDo add filtering, pagination logic etc...
-                    var view = new View({
+                    if(self.view){
+                        self.view.undelegateEvents();
+                    }
+
+                    self.view = new View({
                         chanel: this.chanel,
                         collection: collection,
                         startTime : startTime

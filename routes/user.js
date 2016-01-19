@@ -6,37 +6,25 @@ var UserModel;
 require('../models/user');
 UserModel = mongoose.model('user');
 
-router.get('/', function(req, res, next){
-    var pupkin = {
-        _id: 1,
-        name: 'Pupkin',
-        age: 30
-    };
-    var ivanov = {
-        _id: 2,
-        name: 'Ivanov',
-        age: 36
-    };
-    var petrov = {
-        _id: 3,
-        name: 'Petrov',
-        age: 28
-    };
+router.get('/', function (req, res, next) {
+    UserModel.find().exec(function (err, users) {
+        if (err) {
+            return next(err);
+        }
 
-    console.log(req.logged);
-
-    res.status(200).send([pupkin, ivanov, petrov]);
+        res.status(200).send(users);
+    });
 });
-router.get('/:id', function(req, res, next){
+router.get('/:id', function (req, res, next) {
     var id = req.params.id;
 
     res.status(200).send(id);
 });
-router.post('/', function(req, res, next){
+router.post('/', function (req, res, next) {
     var user = new UserModel(req.body);
 
-    user.save(function(err, _user){
-        if(err){
+    user.save(function (err, _user) {
+        if (err) {
             return next(err);
         }
 

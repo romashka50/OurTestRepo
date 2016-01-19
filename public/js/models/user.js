@@ -4,6 +4,9 @@ define(['Backbone'], function(Backbone){
         idAttribute: '_id',
         defaults: {
             gender: 'male'
+        },
+        urlRoot: function(){
+            return '/myApi/user';
         }
     });
 
