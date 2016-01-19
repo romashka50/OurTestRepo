@@ -9,8 +9,7 @@ define([
         template: _.template(UserTemplate),
 
         events: {
-            'click #createBtn': 'createItem',
-            'click .edit': 'editItem'
+            'click #createBtn': 'createItem'
         },
 
         initialize: function (options) {
@@ -26,18 +25,20 @@ define([
             this.creatItemView = new createItem();
         },
 
-        editItem: function(){
-            alert('OK');
-        },
-
         render: function () {
+            var self = this;
+            var $bodyHolder;
 
             this.$el.html(this.template({
                 tableName: 'UserTable'
             }));
 
+            $bodyHolder = this.$el.find('#bodyHolder');
+
             this.collection.each(function (model) {
-                var item = new UserItemView({model: model});
+                var item = new UserItemView({model: model, attributes: {'data-id': model.id}});
+
+                $bodyHolder.append(item.el);
             });
 
             this.$el.append('<span>' + (new Date() - this.startTime) + '</span>');
