@@ -9,7 +9,8 @@ require.config({
         models     : './models',
         collections: './collections',
         views      : './views',
-        templates: '../templates'
+        templates  : '../templates',
+        moment     : './libs/moment/moment'
     },
     shim : {
         Underscore: {

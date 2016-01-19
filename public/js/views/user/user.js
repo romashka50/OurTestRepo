@@ -9,7 +9,8 @@ define([
         template: _.template(UserTemplate),
 
         events: {
-            'click #createBtn': 'createItem'
+            'click #createBtn': 'createItem',
+            'click .edit': 'editItem'
         },
 
         initialize: function (options) {
@@ -23,6 +24,10 @@ define([
                 this.creatItemView.undelegateEvents();
             }
             this.creatItemView = new createItem();
+        },
+
+        editItem: function(){
+            alert('OK');
         },
 
         render: function () {
