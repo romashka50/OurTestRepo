@@ -2,9 +2,10 @@ define([
     'Backbone',
     'Underscore',
     'jQuery',
-    'text!templates/user/createItem.html',
-    'models/user'
-], function (Backbone, _, $, templateHtml, Model) {
+    'text!templates/user/editItem.html',
+    'models/user',
+    'moment'
+], function (Backbone, _, $, templateHtml, Model, moment) {
     var View = Backbone.View.extend({
         el      : '#content-holder',
         template: _.template(templateHtml),
@@ -14,7 +15,7 @@ define([
             'click #cancelBtn': 'cancel'
         },
 
-        initialize: function (options) {
+        initialize: function () {
             this.render();
         },
 
@@ -24,22 +25,18 @@ define([
 
             var firstName = this.$firstName.val();
             var lastName = this.$lastName.val();
-            var email = this.$email.val();
             var dateOfBirth = this.$dateOfBirth.val();
             var data = {
                 name       : {
                     first: firstName,
                     last : lastName
                 },
-                email      : email,
                 dateOfBirth: dateOfBirth
             };
 
-            var user = new Model(data);
-
             //user.url = '';
 
-            user.save(null, {
+            this.model.save(null, {
                 success: function (model, xhr, options) {
                     self.undelegateEvents();
 
@@ -58,7 +55,11 @@ define([
 
         render: function () {
             var $thisEl = this.$el;
-            $thisEl.html(this.template());
+            var model = this.model.toJSON();
+
+            model.dateOfBirth = moment(model.dateOfBirth).format('YYYY-MM-DD');
+
+            $thisEl.html(this.template(model));
 
             this.$firstName = $thisEl.find('#firstName');
             this.$lastName = $thisEl.find('#lastName');

@@ -31,7 +31,29 @@ router.post('/', function (req, res, next) {
         res.status(200).send(_user);
     });
 });
+router.delete('/:id', function (req, res, next) {
+    var id = req.params.id;
 
+    UserModel.findByIdAndRemove(id, function (err, response) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(200).send({success: 'removed'});
+    });
+});
+router.put('/:id', function (req, res, next) {
+    var id = req.params.id;
+    var body = req.body;
+
+    UserModel.findByIdAndUpdate(id, body, {new: true}, function (err, response) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(200).send(response);
+    });
+});
 module.exports = router;
 
 
