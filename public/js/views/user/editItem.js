@@ -26,17 +26,18 @@ define([
             var firstName = this.$firstName.val();
             var lastName = this.$lastName.val();
             var dateOfBirth = this.$dateOfBirth.val();
-            var data = {
+            this.model.set({
                 name       : {
                     first: firstName,
                     last : lastName
                 },
                 dateOfBirth: dateOfBirth
-            };
+            });
 
             //user.url = '';
 
-            this.model.save(null, {
+            this.model.save(this.model.changed, {
+                patch: true,
                 success: function (model, xhr, options) {
                     self.undelegateEvents();
 

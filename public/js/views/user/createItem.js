@@ -24,14 +24,12 @@ define([
 
             var firstName = this.$firstName.val();
             var lastName = this.$lastName.val();
-            var email = this.$email.val();
             var dateOfBirth = this.$dateOfBirth.val();
             var data = {
                 name       : {
                     first: firstName,
                     last : lastName
                 },
-                email      : email,
                 dateOfBirth: dateOfBirth
             };
 

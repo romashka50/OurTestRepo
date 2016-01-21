@@ -54,6 +54,18 @@ router.put('/:id', function (req, res, next) {
         res.status(200).send(response);
     });
 });
+router.patch('/:id', function (req, res, next) {
+    var id = req.params.id;
+    var body = req.body;
+
+    UserModel.findByIdAndUpdate(id, body, {new: true}, function (err, response) {
+        if (err) {
+            return next(err);
+        }
+
+        res.status(200).send(response);
+    });
+});
 module.exports = router;
 
 
