@@ -25,11 +25,13 @@ define([
             var firstName = this.$firstName.val();
             var lastName = this.$lastName.val();
             var dateOfBirth = this.$dateOfBirth.val();
+            var password = this.$password.val();
             var data = {
                 name       : {
                     first: firstName,
                     last : lastName
                 },
+                password: password,
                 dateOfBirth: dateOfBirth
             };
 
@@ -60,6 +62,7 @@ define([
 
             this.$firstName = $thisEl.find('#firstName');
             this.$lastName = $thisEl.find('#lastName');
+            this.$password = $thisEl.find('#pass');
             this.$dateOfBirth = $thisEl.find('#dateOfBirth');
 
             return this;

@@ -10,17 +10,24 @@ require.config({
         collections: './collections',
         views      : './views',
         templates  : '../templates',
-        moment     : './libs/moment/moment'
+        moment     : './libs/moment/moment',
+        io         : '/socket.io/socket.io'
     },
     shim : {
         Underscore: {
             exports: '_'
         },
+        jQuery    : {
+            exports: '$'
+        },
         'Backbone': ['Underscore', 'jQuery'],
-        'app'     : ['Backbone']
+        'app'     : ['Backbone', 'io']
     }
 });
 
-require(['app'], function (app) {
+require(['app', 'io'], function (app, io) {
     app.init();
+    io().on('myServer', function(msg){
+        console.log(msg);
+    });
 });

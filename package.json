@@ -18,6 +18,8 @@
   "homepage": "https://github.com/romashka50/OurTestRepo#readme",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "connect-mongo": "^1.1.0",
+    "express-session": "^1.13.0",
     "mongoose": "^4.3.5",
     "morgan": "^1.6.1"
   }

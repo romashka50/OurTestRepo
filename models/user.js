@@ -5,6 +5,7 @@ var userSchema = new Schema({
         first: {type: String, required: true},
         last: {type: String, required: true}
     },
+    password: String,
     age: {type: Number, set: calculateAge},
     dateOfBirth: {type: Date, default: Date.now}
 });

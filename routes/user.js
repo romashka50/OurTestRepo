@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var crypto = require('crypto');
 var router = express.Router();
 var UserModel;
 
@@ -20,8 +21,15 @@ router.get('/:id', function (req, res, next) {
 
     res.status(200).send(id);
 });
+
 router.post('/', function (req, res, next) {
     var user = new UserModel(req.body);
+    var shaSum = crypto.createHash('sha256');
+
+    if(user.password){
+        shaSum.update(user.password);
+        user.password = shaSum.digest('hex');
+    }
 
     user.save(function (err, _user) {
         if (err) {
@@ -66,6 +74,7 @@ router.patch('/:id', function (req, res, next) {
         res.status(200).send(response);
     });
 });
+
 module.exports = router;
 
 
